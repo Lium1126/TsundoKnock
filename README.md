@@ -1,4 +1,4 @@
-# Reading
+# Tsundo Knock
 積読解消アプリ
 
 ## License
