@@ -17,4 +17,5 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'Book\BookController@all_books_get');
+Route::post('/addconfirm', 'Book\BookController@confirm_add_book');
