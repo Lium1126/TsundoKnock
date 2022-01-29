@@ -27,15 +27,25 @@
 
                             <tbody>
                                 <tr>
-                                    <td style="height: 1em; background-color: #dcdcdc;" colspan="2">
+                                    <td style="background-color: #dcdcdc;" colspan="2">
                                         {{ $book->title }}
+                                    </td>
+                                    <td class="subbutton-wrapper text-right align-middle" style="width: 32px; background-color: #dcdcdc;">
+                                        <form action="{{ url('/home') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" id="book_id" name="book_id" value="{{ $book->id }}">
+                                            <input type="hidden" id="jobtype" name="jobtype" value="delete">
+                                            <button type="submit">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 224px;" rowspan="2">
+                                    <td style="width: 224px;">
                                         <img src="{{ $book->cover_url }}" style="width: 200px; border: 1px solid;">
                                     </td>
-                                    <td class="align-middle text-center" style="width: 460px">
+                                    <td class="align-middle text-center" style="width: 460px" colspan="2">
                                         <form action="{{ url('/home') }}" method="POST" name="{{ 'updateform'.$book->id }}">
                                             @csrf
                                             <input type="hidden" id="jobtype" name="jobtype" value="update">
@@ -49,18 +59,6 @@
                                             <div class="mt-5 mb-0">
                                                 <a href="javascript:updateform{{ $book->id }}.submit()" class="updatebtn">進捗を更新</a>
                                             </div>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="subbutton-wrapper">
-                                    <td class="text-right align-bottom" style="height: 1rem">
-                                        <form action="{{ url('/home') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" id="book_id" name="book_id" value="{{ $book->id }}">
-                                            <input type="hidden" id="jobtype" name="jobtype" value="delete">
-                                            <button type="submit">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
                                         </form>
                                     </td>
                                 </tr>
