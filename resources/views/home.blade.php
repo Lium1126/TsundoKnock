@@ -33,7 +33,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 224px;">
-                                        <img src="{{ $book->cover_url }}" style="width: 200; border: 1px solid;">
+                                        <img src="{{ $book->cover_url }}" style="width: 200px; border: 1px solid;">
                                     </td>
                                     <td class="align-middle text-center" style="width: 460px">
                                         <progress style="height: 1rem; width: 15rem;" value="{{ $book->reading_page }}" max="{{ $book->full_page }}"></progress>
@@ -54,7 +54,7 @@
                 <div class="card-header">書籍登録</div>
 
                 <div class="card-body">
-                    <form action="{{ url('/add') }}" method="POST">
+                    <form action="{{ url('/home') }}" method="POST">
                         @csrf
                         <input type="hidden" id="title" name="title">
                         <input type="hidden" id="cover" name="cover">
