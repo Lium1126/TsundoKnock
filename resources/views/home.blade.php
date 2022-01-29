@@ -36,7 +36,7 @@
                                         <img src="{{ $book->cover_url }}" style="width: 200px; border: 1px solid;">
                                     </td>
                                     <td class="align-middle text-center" style="width: 460px">
-                                        <form action="{{ url('/home') }}" method="POST">
+                                        <form action="{{ url('/home') }}" method="POST" name="{{ 'updateform'.$book->id }}">
                                             @csrf
                                             <input type="hidden" id="jobtype" name="jobtype" value="update">
                                             <input type="hidden" id="book_id" name="book_id" value="{{ $book->id }}">
@@ -47,7 +47,7 @@
                                                 / {{ $book->full_page }} 
                                             </div>
                                             <div class="mt-5 mb-0">
-                                                <a href="#" class="updatebtn">進捗を更新</a>
+                                                <a href="javascript:updateform{{ $book->id }}.submit()" class="updatebtn">進捗を更新</a>
                                             </div>
                                         </form>
                                     </td>
