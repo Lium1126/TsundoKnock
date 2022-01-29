@@ -128,9 +128,9 @@
                                     /*--- Set value ---*/
                                     $('#title_preview').html(json[0]["summary"]["title"]);
                                     $('#title').val(json[0]["summary"]["title"]);
-                                    $('#cover_preview').attr('src', json[0]["summary"]["cover"]);
-                                    $('#cover').val(json[0]["summary"]["cover"]);
-                                    console.log(json[0]["summary"]["cover"].length);
+                                    const cover_url = (json[0]["summary"]["cover"].length == 0 ? './templates/noimage.png' : json[0]["summary"]["cover"]);
+                                    $('#cover_preview').attr('src', cover_url);
+                                    $('#cover').val(cover_url);
                                     $('#author_preview').html(json[0]["summary"]["author"]);
                                     $('#publisher_preview').html(json[0]["summary"]["publisher"]);
                                     /*------*/
@@ -142,7 +142,7 @@
                                     const msg = $('<p>');
                                     msg.addClass('lead');
                                     msg.addClass('text-center');
-                                    msg.append('No registration');
+                                    msg.append("Book's information is missing");
                                     $('</p>').appendTo(msg);
                                     $('#preview').html(msg);
 
