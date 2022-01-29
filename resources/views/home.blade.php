@@ -82,9 +82,6 @@
                     <script>
                     $(function() {
                         $('#isbn').on('input', function() {
-                            // Clear on preview area
-                            $('#preview').empty();
-
                             var json = $.getJSON('https://api.openbd.jp/v1/get?isbn=' + $('#isbn').val(), function(json) {
                                 if (json[0] != null) {
                                     /*--- Create preview table ---*/
@@ -125,7 +122,7 @@
                                     book_info_row.appendTo(preview_table);
 
                                     $('</tbody></table>').appendTo(preview_table);
-                                    $('#preview').append(preview_table);
+                                    $('#preview').html(preview_table);
                                     /*-------*/
 
                                     /*--- Set value ---*/
@@ -133,13 +130,25 @@
                                     $('#title').val(json[0]["summary"]["title"]);
                                     $('#cover_preview').attr('src', json[0]["summary"]["cover"]);
                                     $('#cover').val(json[0]["summary"]["cover"]);
+                                    console.log(json[0]["summary"]["cover"].length);
                                     $('#author_preview').html(json[0]["summary"]["author"]);
                                     $('#publisher_preview').html(json[0]["summary"]["publisher"]);
                                     /*------*/
 
+                                    /*--- Activate submit button ---*/
                                     $('#addbtn').prop('disabled', false);
+                                    /*------*/
                                 } else {
+                                    const msg = $('<p>');
+                                    msg.addClass('lead');
+                                    msg.addClass('text-center');
+                                    msg.append('No registration');
+                                    $('</p>').appendTo(msg);
+                                    $('#preview').html(msg);
+
+                                    /*--- Disable submit button ---*/
                                     $('#addbtn').prop('disabled', true);
+                                    /*------*/
                                 }
                             });
                         });
