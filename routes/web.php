@@ -18,4 +18,4 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'Book\BookController@all_books_get');
-Route::post('/home', 'Book\BookController@add_book');
+Route::post('/home', 'Book\BookController@dojob');
