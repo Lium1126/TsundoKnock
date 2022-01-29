@@ -19,10 +19,10 @@
                     </div>
                     
                     <div>
-                        <table class="table mt-3 mb-3">
+                        <table class="table mt-3 mb-3" id="bookshelf">
                             @foreach($books as $book)
                             <?php
-                                $percent = round(($book->reading_page / $book->full_page) * 100, 2);
+                                $percent = round(($book->reading_page / $book->full_page) * 100);
                             ?>
 
                             <tbody>
@@ -36,8 +36,20 @@
                                         <img src="{{ $book->cover_url }}" style="width: 200px; border: 1px solid;">
                                     </td>
                                     <td class="align-middle text-center" style="width: 460px">
-                                        <progress style="height: 1rem; width: 15rem;" value="{{ $book->reading_page }}" max="{{ $book->full_page }}"></progress>
-                                        {{ $book->reading_page }} / {{ $book->full_page }} ({{ $percent }}%)
+                                        <form action="{{ url('/home') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" id="jobtype" name="jobtype" value="update">
+                                            <input type="hidden" id="book_id" name="book_id" value="{{ $book->id }}">
+                                            <input type="range" style="height: 1rem; width: 15rem;" min="0" max="{{ $book->full_page }}" step="1" value="{{ $book->reading_page }}" id="{{ 'slider'.$book->id }}" name="progress_range">
+                                            (<span id="{{ 'percent'.$book->id }}" style="display: inline-block; width: 26px;">{{ $percent }}</span>%)
+                                            <div class="mt-1">
+                                                <input type="number" min="0" max="{{ $book->full_page }}" step="1" value="{{ $book->reading_page }}" id="{{ 'num'.$book->id }}" name="progress_num">
+                                                / {{ $book->full_page }} 
+                                            </div>
+                                            <div class="mt-5 mb-0">
+                                                <a href="#" class="updatebtn">進捗を更新</a>
+                                            </div>
+                                        </form>
                                     </td>
                                 </tr>
                                 <tr class="subbutton-wrapper">
@@ -55,6 +67,25 @@
                             </tbody>
                             @endforeach
                         </table>
+
+                        <script>
+                            $(function() {
+                                $('#bookshelf input[type="number"]').on('input', function() {
+                                    if (Number($(this).val()) > Number($(this).attr('max'))) $(this).val($(this).attr('max'));
+                                    var id = $(this).attr('id').substr(3);
+                                    $('#slider' + id).val(($(this).val().length == 0 ? 0 : $(this).val()));
+                                    var percent = Math.floor(($(this).val() / $(this).attr('max')) * Math.pow(10, 2));
+                                    $('#percent' + id).html(percent);
+                                });
+
+                                $('#bookshelf input[type="range"]').on('input', function() {
+                                    var id = $(this).attr('id').substr(6);
+                                    $('#num' + id).val($(this).val());
+                                    var percent = Math.floor(($(this).val() / $(this).attr('max')) * Math.pow(10, 2));
+                                    $('#percent' + id).html(percent);
+                                });
+                            });
+                        </script>
                     </div>
 
                 </div>

@@ -6,3 +6,20 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
+.updatebtn {
+	background-color: #00bfff;
+	color: #ffffff;
+	padding: 10px 35px;
+	text-decoration: none;
+	border-radius: 25px;
+	transition-property: opacity;
+		-webkit-transition-property: opacity;
+	transition-duration: .5s;
+		-webkit-transition-duration: .5s;
+}
+  
+.updatebtn:hover {
+	opacity: .7;
+}
