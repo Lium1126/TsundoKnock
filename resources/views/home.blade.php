@@ -17,7 +17,7 @@
                     <div class="text-center">
                         {{ $msg }}
                     </div>
-
+                    
                     <div>
                         <table class="table mt-3 mb-3">
                             @foreach($books as $book)
@@ -32,13 +32,24 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 224px;">
+                                    <td style="width: 224px;" rowspan="2">
                                         <img src="{{ $book->cover_url }}" style="width: 200px; border: 1px solid;">
                                     </td>
                                     <td class="align-middle text-center" style="width: 460px">
                                         <progress style="height: 1rem; width: 15rem;" value="{{ $book->reading_page }}" max="{{ $book->full_page }}"></progress>
-
                                         {{ $book->reading_page }} / {{ $book->full_page }} ({{ $percent }}%)
+                                    </td>
+                                </tr>
+                                <tr class="subbutton-wrapper">
+                                    <td class="text-right align-bottom" style="height: 1rem">
+                                        <form action="{{ url('/home') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" id="book_id" name="book_id" value="{{ $book->id }}">
+                                            <input type="hidden" id="jobtype" name="jobtype" value="delete">
+                                            <button type="submit">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             </tbody>
@@ -58,6 +69,7 @@
                         @csrf
                         <input type="hidden" id="title" name="title">
                         <input type="hidden" id="cover" name="cover">
+                        <input type="hidden" id="jobtype" name="jobtype" value="add">
                         <table style="margin: auto;">
                             <tr>
                                 <td class="text-right p-1">ISBN</td>
@@ -111,7 +123,7 @@
 
                                     const author_preview_col = $('<td></td>');
                                     author_preview_col.addClass('p-2');
-                                    author_preview_col.css('vertical-align', 'middle');
+                                    author_preview_col.addClass('align-middle');
                                     const author_preview = $('<p></p>');
                                     author_preview.attr('id', 'author_preview');
                                     author_preview.appendTo(author_preview_col);
@@ -142,7 +154,7 @@
                                     const msg = $('<p>');
                                     msg.addClass('lead');
                                     msg.addClass('text-center');
-                                    msg.append("Book's information is missing");
+                                    msg.append("Book's information does not found");
                                     $('</p>').appendTo(msg);
                                     $('#preview').html(msg);
 
