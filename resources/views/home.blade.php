@@ -161,7 +161,7 @@
                                         var mypiechart = new Chart(ctx, {
                                             type: 'pie',
                                             data: {
-                                                labels: ["既読", "未読"],
+                                                labels: ["既読ページ数", "未読ページ数"],
                                                 datasets: [{
                                                     backgroundColor: [
                                                         "#00bfff",
