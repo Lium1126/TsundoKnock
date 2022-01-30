@@ -19,6 +19,36 @@
                         {{ $msg }}
                     </div>
                     @endif
+                
+                    <div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">削除確認画面</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <label>本当にデータを削除しますか？</label>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                                    <button type="button" class="btn btn-danger" id="modal_delete_button" onclick="on_click_delete()">削除</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        var delete_form_name;
+
+                        function set_delete_form_name(form_name) {
+                            delete_form_name = form_name;
+                        }
+
+                        function on_click_delete() {
+                            console.log($('#' + delete_form_name));
+                            $('#' + delete_form_name).submit();
+                        }
+                    </script>
 
                     <div class="tabs">
                         <input id="per_book" type="radio" name="tab_item" checked>
@@ -43,13 +73,17 @@
                                                 {{ $book->title }}
                                             </td>
                                             <td class="subbutton-wrapper text-right align-middle" style="width: 32px; background-color: #dcdcdc;">
-                                                <form action="{{ url('/home') }}" method="POST">
+                                                <?php $form_name = 'delete'.$book->id; ?>
+                                                <form action="{{ url('/home') }}" method="POST" name="{{ $form_name }}" id="{{ $form_name }}">
                                                     @csrf
                                                     <input type="hidden" id="book_id" name="book_id" value="{{ $book->id }}">
                                                     <input type="hidden" id="jobtype" name="jobtype" value="delete">
+                                                    <button type="button" data-toggle="modal" data-target="#delete_modal" onclick="set_delete_form_name('{{ $form_name }}')"><i class="fas fa-trash"></i></button>
+<!--
                                                     <button type="submit">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
+-->
                                                 </form>
                                             </td>
                                         </tr>
