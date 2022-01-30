@@ -17,7 +17,9 @@ class BookController extends Controller
     public function all_books_get(Request $request) {
         return view('home', [
             'msg' => "",
-            'books' => Book::where('user_id', Auth::user()->id)->get()
+            'books' => Book::where('user_id', Auth::user()->id)->get(),
+            'progress_pages' => Book::where('user_id', Auth::user()->id)->sum('reading_page'),
+            'total_pages' => Book::where('user_id', Auth::user()->id)->sum('full_page')
         ]);
     }
 
@@ -55,7 +57,9 @@ class BookController extends Controller
 
         return view('home', [
             'msg' => $error_msg,
-            'books' => Book::where('user_id', Auth::user()->id)->get()
+            'books' => Book::where('user_id', Auth::user()->id)->get(),
+            'progress_pages' => Book::where('user_id', Auth::user()->id)->sum('reading_page'),
+            'total_pages' => Book::where('user_id', Auth::user()->id)->sum('full_page')
         ]);
     }
 }

@@ -7,88 +7,131 @@
             <div class="card">
                 <div class="card-header">本棚</div>
 
-                <div class="card-body">
+                <div class="pt-4 pl-2 pr-2">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif
 
-                    <div class="text-center">
+                    @if ($msg != "") 
+                    <div class="err_msg">
                         {{ $msg }}
                     </div>
-                    
-                    <div>
-                        <table class="table mt-3 mb-3" id="bookshelf">
-                            @foreach($books as $book)
-                            <?php
-                                $percent = round(($book->reading_page / $book->full_page) * 100);
-                            ?>
+                    @endif
 
-                            <tbody>
-                                <tr>
-                                    <td style="background-color: #dcdcdc;" colspan="2">
-                                        {{ $book->title }}
-                                    </td>
-                                    <td class="subbutton-wrapper text-right align-middle" style="width: 32px; background-color: #dcdcdc;">
-                                        <form action="{{ url('/home') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" id="book_id" name="book_id" value="{{ $book->id }}">
-                                            <input type="hidden" id="jobtype" name="jobtype" value="delete">
-                                            <button type="submit">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 224px;">
-                                        <img src="{{ $book->cover_url }}" style="width: 200px; border: 1px solid;">
-                                    </td>
-                                    <td class="align-middle text-center" style="width: 460px" colspan="2">
-                                        <form action="{{ url('/home') }}" method="POST" name="{{ 'updateform'.$book->id }}">
-                                            @csrf
-                                            <input type="hidden" id="jobtype" name="jobtype" value="update">
-                                            <input type="hidden" id="book_id" name="book_id" value="{{ $book->id }}">
-                                            <input type="range" style="height: 1rem; width: 15rem;" min="0" max="{{ $book->full_page }}" step="1" value="{{ $book->reading_page }}" id="{{ 'slider'.$book->id }}" name="progress_range">
-                                            (<span id="{{ 'percent'.$book->id }}" style="display: inline-block; width: 26px;">{{ $percent }}</span>%)
-                                            <div class="mt-1">
-                                                <input type="number" min="0" max="{{ $book->full_page }}" step="1" value="{{ $book->reading_page }}" id="{{ 'num'.$book->id }}" name="progress_num">
-                                                / {{ $book->full_page }} 
-                                            </div>
-                                            <div class="mt-5 mb-0">
-                                                <a href="javascript:updateform{{ $book->id }}.submit()" class="updatebtn">進捗を更新</a>
-                                            </div>
-                                        </form>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            @endforeach
-                        </table>
+                    <div class="tabs">
+                        <input id="per_book" type="radio" name="tab_item" checked>
+                        <label class="tab_item" for="per_book">書籍別表示</label>
+                        <input id="piechart" type="radio" name="tab_item">
+                        <label class="tab_item" for="piechart">全体表示</label>
 
-                        <script>
-                            $(function() {
-                                $('#bookshelf input[type="number"]').on('input', function() {
-                                    if (Number($(this).val()) > Number($(this).attr('max'))) $(this).val($(this).attr('max'));
-                                    var id = $(this).attr('id').substr(3);
-                                    $('#slider' + id).val(($(this).val().length == 0 ? 0 : $(this).val()));
-                                    var percent = Math.floor(($(this).val() / $(this).attr('max')) * Math.pow(10, 2));
-                                    $('#percent' + id).html(percent);
-                                });
+                        <div class="tab_content" id="per_book_content">
+                            <div class="tab_content_description">
+                                <table class="table" id="bookshelf">
+                                    @foreach($books as $book)
+                                    <?php
+                                        $percent = round(($book->reading_page / $book->full_page) * 100);
+                                    ?>
 
-                                $('#bookshelf input[type="range"]').on('input', function() {
-                                    var id = $(this).attr('id').substr(6);
-                                    $('#num' + id).val($(this).val());
-                                    var percent = Math.floor(($(this).val() / $(this).attr('max')) * Math.pow(10, 2));
-                                    $('#percent' + id).html(percent);
-                                });
-                            });
-                        </script>
+                                    <tbody>
+                                        <tr>
+                                            <td style="background-color: #dcdcdc;" colspan="2">
+                                                {{ $book->title }}
+                                            </td>
+                                            <td class="subbutton-wrapper text-right align-middle" style="width: 32px; background-color: #dcdcdc;">
+                                                <form action="{{ url('/home') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" id="book_id" name="book_id" value="{{ $book->id }}">
+                                                    <input type="hidden" id="jobtype" name="jobtype" value="delete">
+                                                    <button type="submit">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 224px;">
+                                                <img src="{{ $book->cover_url }}" style="width: 200px; border: 1px solid;">
+                                            </td>
+                                            <td class="align-middle text-center" style="width: 460px" colspan="2">
+                                                <form action="{{ url('/home') }}" method="POST" name="{{ 'updateform'.$book->id }}">
+                                                    @csrf
+                                                    <input type="hidden" id="jobtype" name="jobtype" value="update">
+                                                    <input type="hidden" id="book_id" name="book_id" value="{{ $book->id }}">
+                                                    <input type="range" style="height: 1rem; width: 15rem;" min="0" max="{{ $book->full_page }}" step="1" value="{{ $book->reading_page }}" id="{{ 'slider'.$book->id }}" name="progress_range">
+                                                    (<span id="{{ 'percent'.$book->id }}" style="display: inline-block; width: 26px;">{{ $percent }}</span>%)
+                                                    <div class="mt-1">
+                                                        <input type="number" min="0" max="{{ $book->full_page }}" step="1" value="{{ $book->reading_page }}" id="{{ 'num'.$book->id }}" name="progress_num">
+                                                        / {{ $book->full_page }} 
+                                                    </div>
+                                                    <div class="mt-5 mb-0">
+                                                        <a href="javascript:updateform{{ $book->id }}.submit()" class="updatebtn">進捗を更新</a>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    @endforeach
+                                </table>
+
+                                <script>
+                                    $(function() {
+                                        $('#bookshelf input[type="number"]').on('input', function() {
+                                            if (Number($(this).val()) > Number($(this).attr('max'))) $(this).val($(this).attr('max'));
+                                            var id = $(this).attr('id').substr(3);
+                                            $('#slider' + id).val(($(this).val().length == 0 ? 0 : $(this).val()));
+                                            var percent = Math.floor(($(this).val() / $(this).attr('max')) * Math.pow(10, 2));
+                                            $('#percent' + id).html(percent);
+                                        });
+
+                                        $('#bookshelf input[type="range"]').on('input', function() {
+                                            var id = $(this).attr('id').substr(6);
+                                            $('#num' + id).val($(this).val());
+                                            var percent = Math.floor(($(this).val() / $(this).attr('max')) * Math.pow(10, 2));
+                                            $('#percent' + id).html(percent);
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                        <div class="tab_content" id="piechart_content">
+                            <div class="tab_content_description text-center">
+                                <h1>積読解消度</h1>
+                                <canvas id="piechartarea">
+
+                                </canvas>
+                                <script>
+                                    window.onload = function() {
+                                        var ctx = $('#piechartarea');
+                                        var mypiechart = new Chart(ctx, {
+                                            type: 'pie',
+                                            data: {
+                                                labels: ["既読", "未読"],
+                                                datasets: [{
+                                                    backgroundColor: [
+                                                        "#00bfff",
+                                                        "#dcdcdc"
+                                                    ],
+                                                    data: [<?php echo $progress_pages ?>,
+                                                            <?php echo ($total_pages - $progress_pages) ?>]
+                                                }]
+                                            },
+                                            options: {
+                                                title: {
+                                                    display: false
+                                                }
+                                            }
+                                        });
+                                    }
+                                </script>
+                                <p class="lead mt-2">({{ round($progress_pages / $total_pages * 100) }}%)</p>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
             </div>
-
 
             <div class="card mt-3">
                 <div class="card-header">書籍登録</div>
