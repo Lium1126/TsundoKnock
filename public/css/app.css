@@ -11042,3 +11042,15 @@ input[name=tab_item] {
   color: #fff;
 }
 
+.inactive {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.booktitle {
+  font-size: 1rem;
+}
+

@@ -58,21 +58,43 @@
 
                         <div class="tab_content" id="per_book_content">
                             <div class="tab_content_description">
+                                <div class="mb-2">
+                                    <input type="checkbox" id="filter_checkbox" onchange="on_change_filter()">
+                                    <label for="fileter_checkbox">未読の書籍のみ表示</label>
+                                </div>
+                                <?php $json_books = json_encode($books) ?>
+                                <script>
+                                    var js_books = JSON.parse('<?php echo $json_books ?>');
+                                    function on_change_filter() {
+                                        js_books.forEach(function(element) {
+                                            if ($('#filter_checkbox').prop('checked')) {
+                                                if (element.reading_page >= element.full_page) {
+                                                    $('#tbody' + element.id).removeClass('active');
+                                                    $('#tbody' + element.id).addClass('inactive');
+                                                }
+                                            } else {
+                                                $('#tbody' + element.id).removeClass('inactive');
+                                                $('#tbody' + element.id).addClass('active');
+                                            }
+                                        })
+                                    }
+                                </script>
+
                                 <table class="table" id="bookshelf">
                                     @foreach($books as $book)
                                     <?php
                                         $percent = round(($book->reading_page / $book->full_page) * 100);
                                     ?>
 
-                                    <tbody>
+                                    <tbody id="{{ 'tbody'.$book->id }}" class="active">
                                         <tr>
-                                            <td style="background-color: #dcdcdc;" colspan="2">
+                                            <td style="background-color: rgb(220, 225, 230);" colspan="2">
                                                 @if ($book->reading_page >= $book->full_page)
                                                     <span style="color: yellow; font-size: 1.5rem;">★</span>
                                                 @endif
-                                                {{ $book->title }}
+                                                <span class="booktitle">{{ $book->title }}</span>
                                             </td>
-                                            <td class="subbutton-wrapper text-right align-middle" style="width: 32px; background-color: #dcdcdc;">
+                                            <td class="subbutton-wrapper text-right align-middle" style="width: 32px; background-color: rgb(220, 225, 230);">
                                                 <?php $form_name = 'delete'.$book->id; ?>
                                                 <form action="{{ url('/home') }}" method="POST" name="{{ $form_name }}" id="{{ $form_name }}">
                                                     @csrf
@@ -213,7 +235,7 @@
                                         title_preview.attr('id', 'title_preview');
                                         title_preview.attr('colspan', '2');
                                         title_preview.addClass('p-2');
-                                        title_preview.css('background-color', '#dcdcdc');
+                                        title_preview.css('background-color', 'rgb(220, 225, 230)');
                                         title_preview.appendTo(title_preview_row);
                                         title_preview_row.appendTo(preview_table);
 
