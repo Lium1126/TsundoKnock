@@ -86,3 +86,15 @@ input[name="tab_item"] {
 	background-color: #5ab4bd;
 	color: #fff;
 }
+
+.inactive {
+	display: none;
+}
+
+.active {
+	display: block;
+}
+
+.booktitle {
+	font-size: 1rem;
+}
