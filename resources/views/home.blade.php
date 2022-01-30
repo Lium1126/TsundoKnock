@@ -79,11 +79,6 @@
                                                     <input type="hidden" id="book_id" name="book_id" value="{{ $book->id }}">
                                                     <input type="hidden" id="jobtype" name="jobtype" value="delete">
                                                     <button type="button" data-toggle="modal" data-target="#delete_modal" onclick="set_delete_form_name('{{ $form_name }}')"><i class="fas fa-trash"></i></button>
-<!--
-                                                    <button type="submit">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
--->
                                                 </form>
                                             </td>
                                         </tr>
