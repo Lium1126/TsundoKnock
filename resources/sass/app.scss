@@ -40,7 +40,7 @@
 	margin-top: 50px;
 	padding-bottom: 40px;
 	background-color: #fff;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+//	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 	width: 100%;
 	margin: 0 auto;
 }
@@ -48,6 +48,8 @@
 .tab_item {
 	width: calc(100% / 2);
 	height: 50px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
 	border-bottom: 3px solid #5ab4bd;
 	background-color: #d9d9d9;
 	line-height: 50px;

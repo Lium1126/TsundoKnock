@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">本棚</div>
 
-                <div class="card-body">
+                <div class="pt-4 pl-2 pr-2">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
