@@ -37,6 +37,9 @@
                                     <tbody>
                                         <tr>
                                             <td style="background-color: #dcdcdc;" colspan="2">
+                                                @if ($book->reading_page >= $book->full_page)
+                                                    <span style="color: yellow; font-size: 1.5rem;">★</span>
+                                                @endif
                                                 {{ $book->title }}
                                             </td>
                                             <td class="subbutton-wrapper text-right align-middle" style="width: 32px; background-color: #dcdcdc;">
@@ -54,7 +57,7 @@
                                             <td style="width: 224px;">
                                                 <img src="{{ $book->cover_url }}" style="width: 200px; border: 1px solid;">
                                             </td>
-                                            <td class="align-middle text-center" style="width: 460px" colspan="2">
+                                            <td class="align-middle text-center" style="width: 460px;" colspan="2">
                                                 <form action="{{ url('/home') }}" method="POST" name="{{ 'updateform'.$book->id }}">
                                                     @csrf
                                                     <input type="hidden" id="jobtype" name="jobtype" value="update">
