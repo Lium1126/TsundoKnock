@@ -60,7 +60,7 @@
                             <div class="tab_content_description">
                                 <div class="mb-2">
                                     <input type="checkbox" id="filter_checkbox" onchange="on_change_filter()">
-                                    <label for="fileter_checkbox">未読の書籍のみ表示</label>
+                                    <label for="fileter_checkbox">読破していない書籍のみ表示</label>
                                 </div>
                                 <?php $json_books = json_encode($books) ?>
                                 <script>
