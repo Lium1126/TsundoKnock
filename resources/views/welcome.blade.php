@@ -85,19 +85,5 @@
                 </div>
             </div>
         </div>
-
-        <?php
-            $url = "https://api.openbd.jp/v1/get?isbn=978-4-297-12521-9";
-            $json = file_get_contents($url);
-            $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
-            $arr = json_decode($json,true);
-
-            if ($arr === NULL) {
-                return;
-            } else {
-                echo '<img src="' . $arr[0]["summary"]["cover"] . '">';
-                # var_dump($arr[0]["summary"]);
-            }
-        ?>
     </body>
 </html>
