@@ -133,6 +133,7 @@
                                     $(function() {
                                         $('#bookshelf input[type="number"]').on('input', function() {
                                             if (Number($(this).val()) > Number($(this).attr('max'))) $(this).val($(this).attr('max'));
+                                            if (Number($(this).val()) < Number($(this).attr('min'))) $(this).val($(this).attr('min'));
                                             var id = $(this).attr('id').substr(3);
                                             $('#slider' + id).val(($(this).val().length == 0 ? 0 : $(this).val()));
                                             var percent = Math.floor(($(this).val() / $(this).attr('max')) * Math.pow(10, 2));
