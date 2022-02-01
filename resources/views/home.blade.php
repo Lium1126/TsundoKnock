@@ -19,7 +19,7 @@
                         {{ $msg }}
                     </div>
                     @endif
-                
+
                     <div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -168,8 +168,8 @@
                                                         "#00bfff",
                                                         "#dcdcdc"
                                                     ],
-                                                    data: [<?php echo $progress_pages ?>,
-                                                            <?php echo ($total_pages - $progress_pages) ?>]
+                                                    data: [<?php echo $total_progress[0]->progress_pages ?>,
+                                                            <?php echo ($total_progress[0]->total_pages - $total_progress[0]->progress_pages) ?>]
                                                 }]
                                             },
                                             options: {
@@ -180,7 +180,7 @@
                                         });
                                     }
                                 </script>
-                                <p class="lead mt-2">({{ round($progress_pages / $total_pages * 100) }}%)</p>
+                                <p class="lead mt-2">({{ round($total_progress[0]->progress_pages / $total_progress[0]->total_pages * 100) }}%)</p>
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ use App\Book;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
@@ -18,8 +19,7 @@ class BookController extends Controller
         return view('home', [
             'msg' => "",
             'books' => Book::where('user_id', Auth::user()->id)->get(),
-            'progress_pages' => Book::where('user_id', Auth::user()->id)->sum('reading_page'),
-            'total_pages' => Book::where('user_id', Auth::user()->id)->sum('full_page')
+            'total_progress' => Book::select(DB::raw("sum(reading_page) as progress_pages,sum(full_page) as total_pages"))->where("user_id", Auth::user()->id)->get()
         ]);
     }
 
@@ -58,8 +58,7 @@ class BookController extends Controller
         return view('home', [
             'msg' => $error_msg,
             'books' => Book::where('user_id', Auth::user()->id)->get(),
-            'progress_pages' => Book::where('user_id', Auth::user()->id)->sum('reading_page'),
-            'total_pages' => Book::where('user_id', Auth::user()->id)->sum('full_page')
+            'total_progress' => Book::select(DB::raw("sum(reading_page) as progress_pages,sum(full_page) as total_pages"))->where("user_id", Auth::user()->id)->get()
         ]);
     }
 }
