@@ -1,5 +1,26 @@
 # Tsundo Knock
-積読解消アプリ
+
+![](https://github.com/Lium1126/TsundoKnock/blob/master/public/images/rogo.png)
+
+Tsundo Knockは、積読のKnock outを支援するWebアプリです。
+
+## DEMO
+
+## Features
+
+## Requirement
+
+## Installation
+
+## Usage
+
+## Note
+
+## Author
+
+- Suzuki Yoshiya
+- Aichi Institute of Technology
+- yosi.4sya@gmail.com
 
 ## License
 
