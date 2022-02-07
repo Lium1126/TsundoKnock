@@ -2,9 +2,14 @@
 
 ![](https://github.com/Lium1126/TsundoKnock/blob/master/public/images/rogo.png)
 
+<br>
 Tsundo Knockは、積読のKnock outを支援するWebアプリです。
 
 ## DEMO
+
+登録した書籍ごとに、読書の進捗を確認できます。
+
+![](https://github.com/Lium1126/TsundoKnock/blob/master/public/images/Home.png)
 
 ## Features
 
