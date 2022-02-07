@@ -29,11 +29,14 @@ Tsundo Knockは、積読のKnock outを支援するWebアプリです。
 | jQuery | 3.5.1 |
 | Chart.js | 2.7.2 |
 
-## Installation
-
-## Usage
-
 ## Note
+
+以下のAPIを使用しています
+
+| Name | URL |
+| --- | --- |
+| Font Awesome | [](https://fontawesome.com/) |
+| OpenBD | [](https://openbd.jp/) |
 
 ## Author
 
