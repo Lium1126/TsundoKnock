@@ -13,6 +13,14 @@ Tsundo Knockは、積読のKnock outを支援するWebアプリです。
 
 ## Features
 
+### 数値とプログレスバーで<u>直感的に</u>進捗更新
+
+![](https://github.com/Lium1126/TsundoKnock/blob/master/public/images/demo.gif)
+
+### 全書籍の進捗も集計
+
+
+
 ## Requirement
 
 ## Installation
