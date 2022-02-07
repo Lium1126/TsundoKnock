@@ -19,9 +19,15 @@ Tsundo Knockは、積読のKnock outを支援するWebアプリです。
 
 ### 全書籍の進捗も集計
 
-
+![](https://github.com/Lium1126/TsundoKnock/blob/master/public/images/pie.png)
 
 ## Requirement
+
+| Framework・Library | Version |
+| --- | --- |
+| Laravel | 6.20.44 |
+| jQuery | 3.5.1 |
+| Chart.js | 2.7.2 |
 
 ## Installation
 
