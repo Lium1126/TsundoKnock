@@ -35,8 +35,8 @@ Tsundo Knockは、積読のKnock outを支援するWebアプリです。
 
 | Name | URL |
 | --- | --- |
-| Font Awesome | [](https://fontawesome.com/) |
-| OpenBD | [](https://openbd.jp/) |
+| Font Awesome | https://fontawesome.com/ |
+| OpenBD | https://openbd.jp/ |
 
 ## Author
 
